@@ -5,11 +5,11 @@
 
 function absClone(a) {
   var b = a.cloneNode(true),
-    c = a.getBoundingClientRect(),
-    d = c.left + (window.pageXOffset || document.documentElement.scrollLeft) + "px",
-    e = c.top + (window.pageYOffset || document.documentElement.scrollTop) + "px",
-    f = window.getComputedStyle(a),
-    g;
+      c = a.getBoundingClientRect(),
+      d = c.left + (window.pageXOffset || document.documentElement.scrollLeft) + "px",
+      e = c.top + (window.pageYOffset || document.documentElement.scrollTop) + "px",
+      f = window.getComputedStyle(a),
+      g;
   if ("" != f.cssText) {
     b.style.cssText = f.cssText;
   } else {
@@ -18,7 +18,6 @@ function absClone(a) {
       g += f[i] + ":" + f.getPropertyValue(f[i]) + ";";
     }
     b.style.cssText = g
-
   }
   b.style.position = "absolute";
   b.style.left = d;
