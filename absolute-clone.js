@@ -3,7 +3,7 @@
 // and position but appended in
 // BODY and "position:absolute"
 
-function absClone(a) {
+function absoluteClone(a) {
   var b = a.cloneNode(true),
       c = a.getBoundingClientRect(),
       d = c.left + (window.pageXOffset || document.documentElement.scrollLeft) + "px",
@@ -13,7 +13,6 @@ function absClone(a) {
   if ("" != f.cssText) {
     b.style.cssText = f.cssText;
   } else {
-    g = "";
     for (var i = 0; i < f.length; i++) {
       g += f[i] + ":" + f.getPropertyValue(f[i]) + ";";
     }
@@ -30,13 +29,16 @@ function absClone(a) {
 /************************** USAGE **************************/
 
 // element to be cloned :
-var element = document.getElementById("ahah");   
+var element = document.getElementById("photo1");   
 
-// creating clone and assign it a variable
-var myClone = absClone(element);                 
+// creating clone and assign a variable to the clone 
+var myClone = absoluteClone(element);                 
 
 // do whatever you want to do with "myClone", for example :
 myClone.style.border = "1px solid #F00"
 
 // Then, append the clone :
 document.body.appendChild(myClone);
+
+// To remove the clone, you can do :
+myClone.onclick = function() { myClone.remove() }
