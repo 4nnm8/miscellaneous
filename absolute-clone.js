@@ -41,4 +41,4 @@ myClone.style.border = "1px solid #F00"
 document.body.appendChild(myClone);
 
 // To remove the clone, you can do :
-myClone.onclick = function() { myClone.remove() }
+myClone.remove()
