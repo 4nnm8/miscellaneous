@@ -16,7 +16,7 @@ function error() {
 }
 
 navigator.geolocation ? navigator.geolocation.getCurrentPosition(function(f) {
-  request = new XMLHttpRequest;
+  request = new XMLHttpRequest();
   request.open("GET", "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + f.coords.latitude + "&lon=" + f.coords.longitude + "&zoom=18&addressdetails=1", !0);
   request.onerror = function(){error()};
   request.onload = function() {
@@ -32,12 +32,13 @@ navigator.geolocation ? navigator.geolocation.getCurrentPosition(function(f) {
 
 /************************** USAGE **************************/
 
-// Ne pas appeller cette fonction, qui sera appellée dès que la ville sera identifiée.
 
-function definir(val) {
+function definir(val) { 
+	
+  // Ne pas appeller cette fonction, qui sera appellée dès que la ville sera identifiée.
 
   // Instructions à exécuter ici, "val" étant la date et le lieu
   
-  document.getElementById("date_et_lieu").value = val;
+  document.getElementById("date_et_lieu").textContent = val;
   
 }
