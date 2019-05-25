@@ -8,8 +8,8 @@
 
 var a = new Date, 
     b = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"], 
-	  c = a.getMonth(),
-	  d = "1" == a.getDate() ? a.getDate() + "<sup>er</sup>" : a.getDate();
+    c = a.getMonth(),
+    d = "1" == a.getDate() ? a.getDate() + "<sup>er</sup>" : a.getDate();
 	
 function error() {
   definir("Le " + d + " " + b[c] + " " + a.getFullYear());
