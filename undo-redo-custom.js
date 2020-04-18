@@ -41,11 +41,12 @@ var fnClipboard = function() {
 clipboard.init(element, number_of_undo_redo_steps);
 
 // EXAMPLE :
-// clipboard.init(document.getElementById("page"), 20);
+clipboard.init(document.getElementById("page"), 20);
 // If second argument not defined, 10 steps by default.
 
 // You might prevent default the default behavior of CTRL + Z/Y
 // But still extract and store element content when doing this
+// WARNING : Undo/Redo from menu not acknowledged by now !
 
 document.addEventListener("keydown", function(e){
   var key = e.keyCode || e.which;
