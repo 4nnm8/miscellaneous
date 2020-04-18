@@ -1,3 +1,7 @@
+// ATTENTION : Function under construction
+// By now, not restoring the caret position
+
+
 var fnClipboard = function() {
     var STEPS = 11, UNDO = [], REDO = [], ELEM;
     this.update = function() {
