@@ -1,5 +1,6 @@
 // ATTENTION : Function under construction
 // By now, not restoring the caret position
+// Undo/Redo from menu not acknowledged !!!
 
 var fnClipboard = function() {
     var STEPS, UNDO = [], REDO = [], ELEM;
@@ -46,7 +47,6 @@ clipboard.init(document.getElementById("page"), 20);
 
 // You might prevent default the default behavior of CTRL + Z/Y
 // But still extract and store element content when doing this
-// WARNING : Undo/Redo from menu not acknowledged by now !
 
 document.addEventListener("keydown", function(e){
   var key = e.keyCode || e.which;
@@ -69,13 +69,10 @@ function addText() {
 }
 
 // Not necessary when content is appended with 'document.execCommand' 
-// beacause it's already considered as an input event. Example of 
-// not necessary :
+// beacause it's already considered as an input event. Example :
 
 function addText() {
   var myText = "Hello world";
   document.execCommand("insertText", false, myText)
-  clipboard.update();
+  clipboard.update(); // < Not necessary in this case
 }
-
-
