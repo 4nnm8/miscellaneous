@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Is it in the Wiktionary ?</title>
+      <style>
+	    * {
+		 box-sizing:border-box;
+		}
+		body {
+		 margin:0;
+		 padding:10px 0 0 0;
+		 overflow:hidden;
+		}
+		.flex-container {
+		 display: flex;
+		 flex-direction: row;
+		 flex-wrap: nowrap;
+		 justify-content: flex-start;
+		 align-content: flex-start;
+		 align-items: flex-start;
+		 padding: 0 10px 0 10px;
+		}
+		.flex-item, .flex-item2 {
+		 width:33vw;
+		 border:1px solid #000;
+		 order: 0;
+		 flex: 1 1 auto;
+		 align-self: auto;
+		}
+		.flex-item:nth-child(1),.flex-item:nth-child(2),.flex-item:nth-child(3){
+		 height:10vh;
+		}
+		.flex-item2:nth-child(1),.flex-item2:nth-child(2),.flex-item2:nth-child(3){
+		 height:90vh;
+		}
+		.flex-item:nth-child(1){
+		 font-size:2em;
+		 text-align:center;
+		}
+		input{
+		 width:100%;
+		 font-size:1.3em;
+		 box-sizing:border-box;
+		}
+		#regex, #sortie {
+		 height:33.33% 
+		}
+		#regex, #sortie {
+		 color:#555 
+		}
+		#tolinks, #open, #lngi {
+		 height:33% 
+		}
+		#entry{
+		 width:100%;
+		 height:100%;
+		 font-size: 1.6em;
+		 font-family: Verdana;
+		 border:0;
+		 padding:5px;
+		}
+		#liens {
+		 font-size: 1.6em;
+		 font-family: Verdana;
+		 padding:5px;
+		}
+		.notexists {
+		 color:#f00 
+		}
+		#lngi{
+		 padding-left:6px;
+		 color:#00F 
+		}
+		#liens {
+		overflow:auto;
+		}
+     </style>
+   </head>
+   <body>
+      <div class="flex-container">
+         <div class="flex-item">
+            Put you words below,<br/>
+            separated by a space or a carriage return
+         </div>
+         <div class="flex-item">
+            <input type="text" id="lngi" placeholder="Your Wikimedia language code (i.e. : fr, bjn, zh-min-nan)" maxlength="12" /><br/>
+            <input type="button" id="tolinks" value="Words to Wiktionary links" /><br/>
+            <input type="button" id="open" value="Open all valid links in tabs" />
+         </div>
+      </div>
+      <div class="flex-container">
+         <div class="flex-item2"><textarea id="entry" placeholder="Your words here"></textarea></div>
+         <div class="flex-item2" id="liens">
+         </div>
+      </div>
+      <script>
+		var entry = document.getElementById("entry"),
+		lng = document.getElementById("lngi"),
+		liens = document.getElementById("liens");
+
+		entry.focus();
+
+		function testpage(wrd) {
+		  let lngval = lng.value.toLowerCase(),
+			  request = new XMLHttpRequest();
+		  request.open("GET", "https://" + lngval + ".wiktionary.org/w/api.php?format=json&action=query&origin=*&export&exportnowrap&titles=" + wrd, !0);
+		  request.onerror = function() {
+			console.log('error')
+		  };
+		  request.onload = function() {
+			if (200 <= request.status && 400 > request.status) {
+			  var g = JSON.stringify(request.responseText),
+				  test = g.indexOf("<page>")
+			  if (test == -1) {
+				liens.innerHTML = liens.innerHTML.replace(wrd, wrd + '\" class=\"notexists\"')
+			  }
+			} else {
+			  console.log('error')
+			}
+		  };
+		  request.send();
+		}
+
+		function country_code() {
+		  var lngval = lng.value.toLowerCase(),
+			  reg = new RegExp("^(aa|ab|ace|ady|af|ak|als|am|an|ang|ar|arc|arz|as|ast|atj|av|ay|az|azb|ba|bar|bat-smg|bcl|be|be-x-old|bg|bh|bi|bjn|bm|bn|bo|bpy|br|bs|bug|bxr|ca|cbk-zam|cdo|ce|ceb|ch|cho|chr|chy|ckb|co|cr|crh|cs|csb|cu|cv|cy|da|de|din|diq|dsb|dty|dv|dz|ee|el|eml|en|eo|es|et|eu|ext|fa|ff|fi|fiu-vro|fj|fo|fr|frp|frr|fur|fy|ga|gag|gan|gd|gl|glk|gn|gom|gor|got|gu|gv|ha|hak|haw|he|hi|hif|ho|hr|hsb|ht|hu|hy|hyw|hz|ia|id|ie|ig|ii|ik|ilo|inh|io|is|it|iu|ja|jam|jbo|jv|ka|kaa|kab|kbd|kbp|kg|ki|kj|kk|kl|km|kn|ko|koi|kr|krc|ks|ksh|ku|kv|kw|ky|la|lad|lb|lbe|lez|lfn|lg|li|lij|lmo|ln|lo|lrc|lt|ltg|lv|mai|map-bms|mdf|mg|mh|mhr|mi|min|mk|ml|mn|mr|mrj|ms|mt|mus|mwl|my|myv|mzn|na|nah|nap|nds|nds-nl|ne|new|ng|nl|nn|no|nov|nrm|nso|nv|ny|oc|olo|om|or|os|pa|pag|pam|pap|pcd|pdc|pfl|pi|pih|pl|pms|pnb|pnt|ps|pt|qu|rm|rmy|rn|ro|roa-rup|roa-tara|ru|rue|rw|sa|sah|sat|sc|scn|sco|sd|se|sg|sh|shn|si|simple|sk|sl|sm|sn|so|sq|sr|srn|ss|st|stq|su|sv|sw|szl|ta|tcy|te|tet|tg|th|ti|tk|tl|tn|to|tpi|tr|ts|tt|tum|tw|ty|tyv|udm|ug|uk|ur|uz|ve|vec|vep|vi|vls|vo|wa|war|wo|wuu|xal|xh|xmf|yi|yo|za|zea|zh|zh-classical|zh-min-nan|zh-yue|zu)$","i"),
+			  chk = reg.test(lngval);
+		  return chk
+		}
+
+		document.getElementById("tolinks").addEventListener("click", function() {
+		  var lngval = lng.value.toLowerCase();
+		  if (lngval == "") {
+			alert("Please enter you Wikimedia language code first (above)")
+			lng.focus()
+			console.log(lngval)
+		  } else if (!country_code()) {
+			alert("Your Wikimedia language code is not correct");
+			lng.value = "";
+			lng.focus()
+		  } else {
+			let cuts = entry.value.split(/\s/g),
+				filt = cuts.filter(v => v != ''),
+				list = [];
+
+			for (let i = 0; i < filt.length; i++) {
+			  let wrd = filt[i],
+				  url = '<a href=\"https://' + lngval + '.wiktionary.org/wiki/' + wrd + '\">' + wrd + '</a>';
+			  list.push(url);
+			  testpage(wrd)
+			}
+			let newlist = list.join("<br/>")
+			liens.innerHTML = newlist
+		  }
+
+		}, false);
+
+		document.getElementById("open").addEventListener("click", function() {
+
+		  if (liens.innerText.trim() !== "") {
+			var links = liens.getElementsByTagName("a");
+			for (let i = 0; i < links.length; i++) {
+			  let url = links[i].href,
+				  sty = links[i].className;
+			  if (sty != "notexists") {
+				window.open(url, "_blank")
+			  }
+			}
+		  } else {
+			alert('Please click the button above to generate links first.')
+		  }
+
+		}, false);
+	  </script>
+   </body>
+</html>
