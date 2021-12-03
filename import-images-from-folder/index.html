@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Import and append images from folders in pure JavaScript</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      /* Optional styling */
+      * {box-sizing: border-box}
+      body {
+        padding: 0 2vw; margin:0;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: space-around
+      }
+      body, .carousels {
+        display: flex;
+        justify-content: space-around
+      }
+      .carousels {
+        border: 1px solid #333;
+        width: 100%;
+        flex-direction: row;
+        padding: 5px;
+        overflow-x: scroll;
+      }
+      .carousels img {
+        display: block;
+        height: 30vh;
+        max-height: 400px;  
+        padding-right: min(50px, 5%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousels" id="carousel_1"></div>
+    <div class="carousels" id="carousel_2"></div>
+    <script>
+      const root = "img", // root folder of all your photo albums
+            lst = [
+                    ["folder1", "carousel_1", "jpg"],
+                    ["folder2", "carousel_2", "jpg"]      
+                  ];
+//                     (1)         (2)        (3)
+// (1) Album folder, all images files inside must be numbered from 1 to ∞  (ex: 1.jpg, 2.jpg...)
+// (2) The ID of the element in which the images must be append
+// (3) The file extension of the images inside each folder
+// Dont touch anything after this unless you know what you're doing :P
+
+      var n = 1, c = 0;
+      function importImages() {
+        function again() {
+          n++ 
+          var pic = document.createElement("img");
+          pic.src = url;         
+          document.getElementById(lst[c][1]).appendChild(pic);
+          importImages(lst[c,0],lst[c,1]);
+        }
+        if (c == lst.length) { return false }
+        var img = new Image(),
+            url = root + "/" + lst[c][0] + "/" + n + "." + lst[c][2];
+        img.src = url;
+        if (img.complete) {
+          again();
+        } else {
+          img.addEventListener("load", again);
+          img.addEventListener("error", function() {
+            n = 1; c++;
+            importImages();
+          });
+        }
+      } 
+      importImages();
+    </script>
+  </body>
+</html>
