@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
+    <meta name="googlebot" content="noindex" />
+    <meta name="robots" content="none" />
+    <meta name="author" content="Ann MB" />
+    <meta name="description" content="" />
+	  <style>
+      @charset utf-8;
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: LightSteelBlue;
+        font: 100% sans-serif ;
+      }
+      #container {
+        height : 100vh
+      }
+      #cal-grid {
+        display: grid; 
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(auto-fill, 1fr);
+        min-height: 100vh;
+      }
+      #cal-grid > div {
+        border: 1px solid #000;
+        position: relative;
+        height: 40px;
+        display: inline-block;
+        height: 100%
+      }
+      #cal-grid > div::before {
+        position: absolute;
+        text-align: center;
+        top: .2rem; left: .2rem;
+        font-size: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .cal-prev, .cal-next {
+        background: repeating-linear-gradient(-45deg,#efefef,#efefef 10px,#fff 10px,#fff 20px);
+      }
+
+      .cal-curr {
+        background: #fff;
+      }
+      .cal-today::before {
+        background: #333;
+        color: #fefefe;
+         border-radius: 50%; border: 1px solid #000;
+        line-height: 1.6;
+      }
+      .cal-prev::before {
+        content: counter(prev-days, decimal);
+        counter-increment: prev-days 1;
+      }
+      .cal-curr::before {
+        content: counter(curr-days, decimal);
+        counter-increment: curr-days;
+      }
+      .cal-next::before {
+        content: counter(next-days, decimal);
+        counter-increment: next-days;
+      }
+      .cal-nav, .days-names {
+        user-select: none;
+      }
+      .days-names, .cal-nav {
+        display: flex;
+      }
+      .days-names > div {
+        display: inline-block;
+        width: 14.285714286%;
+        border: 1px solid #000;
+        background: #fff;
+        text-align: center;
+      }
+      .cal-nav {
+        width: 100%;
+        padding: .2rem 0;
+      }
+      .cal-nav > div {
+        display: inline-block;
+      }
+      #month-year {
+        margin: 0 2rem
+      }
+      #month-year:first-letter {
+        text-transform: uppercase;
+      }
+      #go-prev, #go-next {
+        flex: 1 1 auto;
+        cursor: pointer;
+      }
+      #go-prev {
+        text-align: right
+      }
+    </style>
+    <title>RightTime.js</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="cal-nav">
+        <div id="go-prev">&#x25C0;</div>
+        <div id="month-year"></div>
+        <div id="go-next">&#x25B6;</div>
+      </div>
+      <div class="days-names">
+        <div>L<span>un<span>di</span></span></div>
+        <div>M<span>ar<span>di</span></span></div>
+        <div>M<span>er<span>credi</span></span></div>
+        <div>J<span>eu<span>di</span></span></div>
+        <div>V<span>en<span>dredi</span></span></div>
+        <div>S<span>am<span>edi</span></span></div>
+        <div>D<span>im<span>anche</span></span></div>
+      </div>
+      <div id="cal-grid"></div>
+    </div>
+    <script src="right-time.js"></script>
+  </body>
+</html>
