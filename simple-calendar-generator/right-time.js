@@ -1,10 +1,23 @@
 const 
-days = [null, "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
-months = [null, "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"],
-moonName = ["New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Last Quarter", "Waning Crescent"],
-moonEmote = ["🌑","🌒","🌓","🌔","🌕","🌖","🌗","🌘"],
+days = [null, "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+months = [null, "janvier", "f\u00e9vrier", "mars", "avril", "mai", "juin", "juillet", "ao\u00fbt", "septembre", "octobre", "novembre", "d\u00e9cembre"],
+moonName = ["Nouvelle Lune", "Premier Croissant", "Premier quartier", "Gibeuse ascendante", "Pleine Lune", "Gibeuse descendante", "Dernier Quartier", "Dernier Croissant"],
+zodiacBound = [null, 21, 20, 21, 21, 21, 22, 23, 23, 23, 23, 21, 20],
+zodiacName = [null,"verseau","poissons","b\u00e9lier","taureau","g\u00e9meaux", "cancer","lion","vierge","balance","scorpion","sagittaire","capricorne"],
+zodiacEmote = ["\u2652","\u2653","\u2648","\u2649","\u264A","\u264B","\u264C","\u264D","\u264E","\u264F","\u2650","\u2651"],
+moonEmote = ["\u{1F311}","\u{1F312}","\u{1F313}","\u{1F314}","\u{1F315}","\u{1F316}","\u{1F317}","\u{1F318}"],
+
 RightTime = function(a,m,j,h,min) {
-  a || m || j || h || min ? (!m && (m = 1), !j && (j = 1), !h && (h = 0), !min && (min = 0), this.Now = new Date(a, m - 1, j, h, min)) : this.Now = new Date();
+  var getLunarAge = function(a,b,c) {
+    a = void 0 === a ? new Date() : new Date(a,b,c);
+    var b = a.getTime();
+    a = a.getTimezoneOffset();
+    b = (b / 86400000 - a / 1440 - 10962.6) / 29.530588853;
+    b -= Math.floor(b);
+    0 > b && (b += 1);
+    return 29.530588853 * b;
+  };
+  a || m || j || h || min ?(!m && (m = 1), !j && (j = 1), !h && (h = 0), !min && (min = 0), this.Now = new Date(a, m - 1, j, h, min)):this.Now = new Date()
   this.Day = this.Now.getDate();
   this.DayInWeek = 0 == this.Now.getDay() ? 7 : this.Now.getDay();
   this.DayInWeekName = days[this.DayInWeek];
@@ -20,17 +33,15 @@ RightTime = function(a,m,j,h,min) {
   this.DaysInWeekPrev = this.FirstDayOfMonth - 1;
   this.DaysInWeekNext = 7 - this.LastDayOfMonth;
   this.IsBissextile = ((this.Year % 4 === 0 && this.Year % 100 > 0) || (this.Year % 400 === 0));  
-  var jd = b = 0, m = this.Month, a = this.Year, j = this.Day;
-  m < 3 && (a--, m += 12)
-  ++m;
-  jd = ((365.25 * a) + (30.6 * m) + j - 694039.09) / 29.5305882;
-  b = parseInt(jd); 
-  jd -= b; 
-  b = Math.round(jd * 8);
-  b >= 8 && (b = 0);
-  this.MoonNumber = b;
-  this.MoonName = moonName[b];
-  this.MoonEmote = moonEmote[b];
+  this.ZodiacDay = zodiacBound[this.Month];
+  this.ZodiacEmote = zodiacEmote[this.Month];
+  this.MoonAge = getLunarAge(this.Year, this.Month, this.Day);
+  this.NextFullMoon = this.MoonAge > 14.765294427 ? Math.round(44.29588328 - this.MoonAge) : Math.round(14.765294427 - this.MoonAge);
+  this.NextNewMoon = Math.round(29.530588853 - this.MoonAge);
+  var mn = Math.round((this.MoonAge * 8) / 29.530588853)
+  this.MoonNumber = mn >= 8 ? 0 : mn;
+  this.MoonName = moonName[this.MoonNumber];
+  this.MoonEmote = moonEmote[this.MoonNumber];
 }
 
 // To use it :
