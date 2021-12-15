@@ -9,7 +9,7 @@ moonEmote = ["\u{1F311}","\u{1F312}","\u{1F313}","\u{1F314}","\u{1F315}","\u{1F3
 
 RightTime = function(a,m,j,h,min) {
   var getLunarAge = function(a,b,c) {
-    a = void 0 === a ? new Date() : new Date(a,b,c);
+    var a = new Date(a,b,c);
     var b = a.getTime();
     a = a.getTimezoneOffset();
     b = (b / 86400000 - a / 1440 - 10962.6) / 29.530588853;
