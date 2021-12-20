@@ -5,7 +5,8 @@ months = [null, "janvier", "f\u00e9vrier", "mars", "avril", "mai", "juin", "juil
 
 class RightTime {
   constructor(a,m,j,h,min) {
-    a || m || j || h || min ? (!m && (m = 1), !j && (j = 1), !h && (h = 0), !min && (min = 0), this.Now = new Date(a, m - 1, j, h, min)) : this.Now = new Date()
+    a || m || j || h || min ? (!m && (m = 1), !j && (j = 1), !h && (h = 0), !min && (min = 0), 
+                               this.Now = new Date(a, m - 1, j, h, min)) : this.Now = new Date();
     this.Year = this.Now.getFullYear();
     this.Month = this.Now.getMonth() + 1;
     this.Day = this.Now.getDate();
@@ -28,19 +29,17 @@ class RightTime {
   get DaysInWeekPrev() { return this.FirstDayOfMonth - 1 }
   get DaysInWeekNext() { return 7 - this.LastDayOfMonth }
   get Zodiac() {
-    const zodiacBound = [null, 21, 20, 21, 21, 21, 22, 23, 23, 23, 23, 21, 20],
-          zodiacName = [null,"verseau","poissons","b\u00e9lier","taureau","g\u00e9meaux", "cancer","lion","vierge","balance","scorpion","sagittaire","capricorne"],
-          zodiacEmote = [null,"\u2652","\u2653","\u2648","\u2649","\u264A","\u264B","\u264C","\u264D","\u264E","\u264F","\u2650","\u2651"];
     var m = this.Month;  
     return {
       get Emote() {
-        return zodiacEmote[m];
+        return [null,"\u2652","\u2653","\u2648","\u2649","\u264A","\u264B","\u264C","\u264D","\u264E","\u264F","\u2650","\u2651"][m];
       },
       get Bound() {
-        return zodiacBound[m];
+        /* shifting from year to year, provide  an other method */
+        return [null, 21, 20, 21, 21, 21, 22, 23, 23, 23, 23, 21, 20][m];
       },
       get Name() {
-        return zodiacName[m];
+        return [null,"verseau","poissons","b\u00e9lier","taureau","g\u00e9meaux", "cancer","lion","vierge","balance","scorpion","sagittaire","capricorne"][m];
       }
     }
   }
@@ -67,16 +66,13 @@ class RightTime {
        return mn >= 8 ? 0 : mn
       },
       get Name() { 
-        const moonName = ["Nouvelle Lune", "Premier Croissant", "Premier quartier", "Gibeuse ascendante", "Pleine Lune", "Gibeuse descendante", "Dernier Quartier", "Dernier Croissant"];
-        return moonName[this.Number]
+        return ["Nouvelle Lune", "Premier Croissant", "Premier quartier", "Gibeuse ascendante", "Pleine Lune", "Gibeuse descendante", "Dernier Quartier", "Dernier Croissant"][this.Number]
       },
       get Emote() { 
-        const moonEmote = ["\u{1F311}","\u{1F312}","\u{1F313}","\u{1F314}","\u{1F315}","\u{1F316}","\u{1F317}","\u{1F318}"];
-        return moonEmote[this.Number] 
+        return ["\u{1F311}","\u{1F312}","\u{1F313}","\u{1F314}","\u{1F315}","\u{1F316}","\u{1F317}","\u{1F318}"][this.Number] 
       }
     }
   }
-
   get WeekOfYear() {
     var date = new Date(this.Year,this.Month-1,this.Day);
     date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
@@ -89,9 +85,6 @@ class RightTime {
     return new RightTime(d.getFullYear(), d.getMonth()+1, d.getDate())
   }
 }
-var nowMonth, thisMonth, evtL = evt.length, events = [], eventsLength, storeFocus, soonEvents = 0;
-nowMonth = thisMonth = new RightTime();
-
 
 
 // To use it :
@@ -119,6 +112,8 @@ nowMonth = thisMonth = new RightTime();
 // date.Zodiac.Name -> returns the name of the Zodiac sign that changes during this month
 // date.Zodiac.Emote -> returns the emote of the Zodiac sign that changes during this month
 // date.Zodiac.Bound -> returns the day number in which the Zodiac sign changes during the month
+// date.ShiftDays(±n) -> adds or removes 'n' days from the given day and returns a new RightTime() object
+  // you can then use it this way : var new_day = new RightTime().ShiftDays(-5).DayInWeekName
 
 // You can define date like this :
 // var date = new RightTime(2022,5,12) -> all of the above properties will apply to the given date
