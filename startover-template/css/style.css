@@ -1,0 +1,61 @@
+@charset 'utf-8';
+/*@import '<url>' <media queries>;*/
+
+:root {
+  color-scheme: light dark;
+  --main-color: #;
+  --main-bg-color: #;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+body::after {
+  content: url(), url(), url(); /* To preload images with CSS */  
+  position:absolute; width:0; height:0; overflow:hidden; z-index:-1;
+}
+.container {
+  width: 100%;
+  /*height: 100vh; 
+  height: calc(var(--vh, 1vh) * 100);*/ /* uncomment for websites with fixed height. this avoids the address bar scroll quirk on mobile */
+}
+
+/* Référence : https://developer.mozilla.org/en/docs/Web/CSS/Media_Queries/Using_media_queries */
+@media all and (max-width: 1024px) {
+    
+}
+
+/* Dark mode styling */
+@media (prefers-color-scheme: dark) {
+  
+}
+
+/* Light mode styling - optional if default styling is light */
+@media (prefers-color-scheme: light) {
+  
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .<animation-name> {
+    animation: none;
+  }
+}
+@page {
+  size: A4 portrait
+}
+@media print { 
+  html, body {
+    height: auto !important; 
+    overflow: auto !important
+  }
+ 
+  a::after {
+    content: " (" attr(href) ") ";
+  }
+}
