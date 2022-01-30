@@ -1,0 +1,150 @@
+input, textarea, button, select, option, optgroup,
+label, fieldset, legend, progress {
+  all: unset
+}
+input, select, textarea, progress, button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+:where([hidden]){ display:none }
+::-webkit-progress-inner-element,
+::-webkit-progress-bar,
+::-webkit-search-cancel-button,
+::-webkit-search-decoration,
+::-webkit-search-results-button,
+::-webkit-search-results-decoration,
+::-webkit-textfield-decoration-container,
+::-webkit-clear-button,
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+::-webkit-contacts-auto-fill-button,
+::-webkit-credentials-auto-fill-button,
+::-webkit-caps-lock-indicator,
+::-webkit-calendar-picker-indicator {
+  display: none;
+}
+::-moz-focus-inner {
+  border: 0;
+  padding: 0
+}
+input::-ms-expand,
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0
+}
+[type="number"] {
+  -moz-appearance: textfield
+}
+input[type="color"]::-moz-color-swatch { border:0 }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0 }
+input[type="color"]::-webkit-color-swatch { border: none }
+
+[type="submit"], [type="button"], [type="reset"], button {
+  -webkit-appearance: button;
+}
+input[type="search"] {
+	-webkit-appearance: textfield;
+}
+:-moz-ui-invalid {
+	box-shadow: none
+}
+
+[type=range]::-webkit-slider-thumb { -webkit-appearance: none }
+[type=range]::-ms-thumb { -ms-appearance: none}
+[type=range]::-ms-tooltip {display: none}
+
+/**** CORRECTIONS *************************************************************/
+input, textarea, button, select, option, optgroup, label, fieldset, legend,
+progress, range {
+  box-sizing: border-box;
+	white-space: normal;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  vertical-align: middle;
+}
+input, textarea, button, select, label, progress {
+  display: inline-block;
+}
+fieldset, legend, option, optgroup {
+  display: block;
+}
+fieldset {
+    min-width: 0;
+}
+label {
+  display: inline;
+  box-sizing: content-box;
+}
+select {
+  vertical-align: middle;
+  box-sizing: content-box;
+  word-wrap: normal;
+}
+select, optgroup, option {
+  white-space: nowrap
+}
+select[multiple] {
+  word-wrap: normal;
+  overflow: auto;
+  vertical-align:top;
+  text-align: left;
+}
+
+textarea {
+  vertical-align:top;
+  overflow: auto;
+  white-space: pre-wrap;
+  resize: vertical;
+  height: revert;
+}
+[type="text"], [type="password"], [type="email"], [type="search"], [type="tel"], [type="url"],
+[type="month"], [type="week"], [type="number"], [type="date"], [type="time"], [type="datetime-local"],
+textarea {
+  vertical-align: middle;
+  box-sizing: content-box;
+}
+progress {
+  vertical-align: baseline;
+}
+
+[type="submit"], [type="button"], [type="reset"], button {
+  width:auto;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+  overflow:visible;
+}
+::-ms-browse {
+  -webkit-appearance: button;
+  overflow: visible;
+  width:auto;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+
+/*
+select:-internal-list-box
+select:-webkit-autofill
+option:-internal-spatial-navigation-focus*/
