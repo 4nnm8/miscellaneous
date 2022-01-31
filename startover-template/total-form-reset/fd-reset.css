@@ -40,6 +40,7 @@ input::-ms-reveal {
 [type="number"] {
   -moz-appearance: textfield
 }
+input[type="color"] {overflow: hidden}
 input[type="color"]::-moz-color-swatch { border:0 }
 input[type="color"]::-webkit-color-swatch-wrapper { padding: 0 }
 input[type="color"]::-webkit-color-swatch { border: none }
@@ -54,13 +55,13 @@ input[type="search"] {
 	box-shadow: none
 }
 
-[type=range]::-webkit-slider-thumb { -webkit-appearance: none }
+[type=range], [type=range]::-webkit-slider-thumb { -webkit-appearance: none }
 [type=range]::-ms-thumb { -ms-appearance: none}
 [type=range]::-ms-tooltip {display: none}
 
 /**** CORRECTIONS *************************************************************/
 input, textarea, button, select, option, optgroup, label, fieldset, legend,
-progress, range {
+progress {
   box-sizing: border-box;
 	white-space: normal;
   color: inherit;
@@ -105,6 +106,7 @@ textarea {
   resize: vertical;
   height: revert;
 }
+
 [type="text"], [type="password"], [type="email"], [type="search"], [type="tel"], [type="url"],
 [type="month"], [type="week"], [type="number"], [type="date"], [type="time"], [type="datetime-local"],
 textarea {
@@ -141,6 +143,24 @@ button:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
   outline: 1px dotted ButtonText;
+}
+[type=range]::-webkit-slider-thumb { cursor: grab, grabbing }
+[type=range]::-webkit-slider-thumb:active { cursor: grabbing}
+
+[type=range]::-moz-range-thumb {cursor: grab }
+[type=range]::-moz-range-thumb:active,
+[type=range]::-moz-slider-thumb:active { cursor: grabbing }
+
+[type=range]::-ms-thumb { cursor: grab }
+[type=range]::-ms-thumb:active {cursor: grabbing }
+
+[type=button], [type=reset], [type=submit],
+[type=image], [type=color], label, button {
+  cursor: pointer
+}
+[type=datetime-local], [type=date],
+[type=month], [type=time] {
+  cursor: text
 }
 
 

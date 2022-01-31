@@ -361,9 +361,9 @@ getComputedStyle(element).getPropertyValue("--ma-variable");
 // définir une variable dans un style en ligne
 element.style.setProperty("--ma-variable", varJS + 4);
 */
-  
+
 /*
-<select name="timezone_offset" id="timezone-offset" class="span5">
+<select name="timezone_offset" id="timezone-offset">
 	<option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
 	<option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
 	<option value="-10:00">(GMT -10:00) Hawaii</option>

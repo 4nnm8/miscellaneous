@@ -1,0 +1,146 @@
+/* <select multiple> minimum option visible vertically */
+:root {
+  --fd-select-size: 4
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+
+
+/**** CUSTOM ******************************************************************/
+
+.fd-datetime-container input:focus {
+ background-color: var(--selection-bg-color);
+  color: var(--selection-text-color);
+}
+.fd-datetime-container {
+  display: inline-flex;
+  overflow:hidden;
+  position: relative;
+  border: var(--fd-border);
+  background: var(--fields-background);
+}
+.fd-datetime-container input {
+  width: calc(100% + 18px);
+  border: none;
+  background-color: transparent;
+  flex:0 0 auto
+}
+
+
+div.fd-select {
+  border: var(--fd-border);
+  border-radius: var(--fd-border-radius);
+  background: var(--fields-background);
+  display: inline-block;
+  white-space: nowrap
+
+}
+div.fd-select input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+div.fd-select fieldset {
+  all:unset
+}
+div.fd-select .fd-optgroup {
+  color: var(--darker-color);
+  font-weight: bold;
+}
+div.fd-select .fd-optgroup label {
+  color: var(--base-color);
+  font-weight: normal
+}
+div.fd-select:not(.multiple) {
+  height: var(--fields-min-height);
+  padding: var(--fd-padding);
+  overflow: hidden;
+}
+div.fd-select:not(.multiple) label:hover {
+  background: var(--selection-bg-color);
+  color: var(--selection-text-color)
+}
+div.fd-select-open {
+  overflow: visible !important;
+}
+div.fd-select-open fieldset {
+  background: var(--fields-background);
+  width: calc(100% + 2 * var(--fd-padding));
+  border: var(--fd-border);
+  margin-left: calc(-1 * var(--fd-padding));
+  margin-top: calc(-1 * var(--fd-padding));
+  border-radius: var(--fd-border-radius);
+  z-index: 9999;
+  position: absolute;
+}
+div.fd-select.multiple {
+  height: calc(22px * var(--fd-select-size, 3));
+  overflow: hidden;
+  user-select: none;
+}
+div.fd-select.multiple fieldset {
+  overflow: auto;
+  height: 100%
+}
+
+div.fd-select input + label {
+  display: block;
+  box-sizing: content-box;
+  padding: 2px 15px 2px 5px;
+  height: 18px;
+  white-space: nowrap
+}
+div.fd-select.multiple input[type="checkbox"]:checked + label {
+  background-color: var(--selection-bg-color);
+  color: var(--selection-text-color);
+}
+
+
+
+
+.fd-datetime-container {
+  display: inline-block;
+  position: relative;
+}
+.fd-datetime-container::after {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 14px;
+  position: absolute;
+  top: calc(50% - 9px);
+  right: calc(var(--fields-borders) + 2px);
+}
+
+.fd-datetime-container input {
+}
+
+
+
+/*
+input:not(:placeholder-shown):valid, .fd-valid {
+  color: green
+}
+input:not(:placeholder-shown):invalid, .fd-invalid {
+   color: red !important
+}
+*/
