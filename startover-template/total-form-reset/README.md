@@ -7,6 +7,6 @@ What you cannot custom without JavaScript ?
 
   - Numbers focus highlight in Firefox for the same INPUTs
 
-  - Background color of hovered <option> in all browsers
+  - Background color of hovered OPTION tag in all browsers
   
   - Scrollbars except in Webkit
